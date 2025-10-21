@@ -1,0 +1,253 @@
+body {
+    font-family: 'Fira Code', monospace;
+    background: #000000;
+    color: #f8f8f2;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.container {
+    height: 100vh;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.scrollable-area {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.scrollable-area::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+.scrollable-area {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+#transmission-log, #decoded-text {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+#transmission-log::-webkit-scrollbar,
+#decoded-text::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+#transmission-log,
+#decoded-text {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.grid-cols-1 {
+    min-height: 0;
+}
+
+.blinking-cursor {
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    from, to { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+@keyframes waveform {
+    0% {
+        transform: translateX(-100%);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+.waveform-active {
+    animation: waveform 0.3s ease-out;
+}
+
+.pulse-flash {
+    animation: pulseFlash 0.15s ease-in-out;
+}
+
+@keyframes pulseFlash {
+    0% {
+        background: #ffffff;
+        color: #000000;
+    }
+    100% {
+        background: transparent;
+        color: #f8f8f2;
+    }
+}
+
+.morse-dot::before {
+    content: "·";
+    font-weight: bold;
+}
+
+.morse-dash::before {
+    content: "–";
+    font-weight: bold;
+}
+
+.status-online {
+    background: #00ff00;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.status-offline {
+    background: #ff0000;
+}
+
+.status-connecting {
+    background: #ffff00;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.log-entry {
+    border-left: 2px solid #333;
+    padding-left: 6px;
+    margin: 3px 0;
+}
+
+.log-entry.you {
+    border-left-color: #00ff00;
+}
+
+.log-entry.other {
+    border-left-color: #0088ff;
+}
+
+.composition-line {
+    border-left: 2px solid #00ff00;
+    padding-left: 6px;
+    background: rgba(0, 255, 0, 0.05);
+    padding: 6px;
+    border-radius: 4px;
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { background: rgba(0, 255, 0, 0.05); }
+    50% { background: rgba(0, 255, 0, 0.1); }
+}
+
+button:focus, input:focus {
+    outline: 2px solid #00ff00;
+    outline-offset: 1px;
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 8px;
+    }
+
+    #transmit-btn {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+
+    button {
+        min-height: 44px;
+    }
+
+    input, select, textarea {
+        font-size: 16px;
+    }
+}
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+kbd {
+    font-family: 'Fira Code', monospace;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    border: 1px solid #333;
+    box-shadow: 0 1px 0 #333;
+    font-size: 0.75rem;
+}
+
+#current-morse, #current-text {
+    font-family: 'Fira Code', monospace;
+    word-break: break-all;
+}
+
+@media (max-width: 768px) {
+    #connection-modal {
+        padding: 1rem;
+    }
+
+    #connection-modal > div {
+        margin: 0;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+}
+
+button, .transmit-btn {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@media (hover: none) and (pointer: coarse) {
+    button:hover {
+        background-color: initial;
+    }
+
+    button:active {
+        transform: scale(0.98);
+    }
+}
+
+#backspace-btn {
+    font-family: 'Fira Code', monospace;
+}
+
+* {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
